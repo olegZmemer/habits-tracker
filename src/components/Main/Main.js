@@ -5,6 +5,7 @@ import css from './Main.module.scss'
 import cx from 'classnames'
 import {addHabit} from '../../store/habits/actions'
 import {setDayModal} from '../../store/dayModal/actions'
+import {setHabitModal} from '../../store/habitModal/actions'
 export default function Main(){
     const habits = useSelector(state => state.habits.habits);
     const dispatch = useDispatch();
@@ -30,6 +31,9 @@ export default function Main(){
     }
     function handleDayClick(habit, key){
         dispatch(setDayModal(habit, key))
+    }
+    function handleHabitClick(habit){
+        dispatch(setHabitModal(habit))
     }
     function readHabitProgress(habitObj){ // Display cyrcles with habit-progress relative to habit object
         const days = []
@@ -61,7 +65,7 @@ export default function Main(){
                         {habits.map((habit)=>{
                             return (
                                 <tr key = {habit.id}>
-                                    <td className = {css.habitName}>{habit.name}</td>
+                                    <td onClick = {()=>handleHabitClick(habit)} className = {css.habitName}>{habit.name}</td>
                                     {readHabitProgress(habit)}
                                 </tr>
                             )

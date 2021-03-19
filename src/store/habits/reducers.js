@@ -1,5 +1,5 @@
 import {
-    ADD_HABIT
+    ADD_HABIT, UPDATE_HABITS
 } from '../actionTypes.js'
 import uniqid from 'uniqid'
 function createHabitProgress() {
@@ -21,7 +21,7 @@ const initialState = {
     }]
 }
 
-export default (state = initialState, {
+const habits = (state = initialState, {
     type,
     payload
 }) => {
@@ -36,8 +36,13 @@ export default (state = initialState, {
                     id: uniqid()
                 }]
             }
-
+        case UPDATE_HABITS:
+            return{
+                ...state,
+                habits: payload
+            }
             default:
                 return state
     }
 }
+export default habits;
