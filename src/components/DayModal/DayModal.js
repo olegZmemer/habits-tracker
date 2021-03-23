@@ -1,6 +1,6 @@
 import React from 'react'
 import {useSelector, useDispatch} from 'react-redux'
-import cx from 'classnames'
+
 import css from './DayModal.module.scss'
 import { checkDay } from '../../store/dayModal/actions';
 export default function DayModal() {

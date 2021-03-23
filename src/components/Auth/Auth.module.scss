@@ -1,0 +1,41 @@
+.form{
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    margin: 0 auto;
+    padding-top: 30vh;
+    h1{
+        font-family: 'Work Sans', sans-serif;
+        color: #9CD6FB;
+        font-size: 40px; 
+        font-weight: 600;
+        text-align: center;
+    }
+    label{
+        margin-top: 20px;
+        color: #9CD6FB;
+        font-weight: 600;
+        font-family: 'Work Sans', sans-serif;
+    }
+    input{
+        width: 100%;
+        padding: 10px 0 10px 20px;
+        font-size: 20px;
+        margin-top: 5px;
+    }
+}
+.buttons{
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    justify-content: space-around;
+    button{
+        background-color: #9CD6FB;
+        color: white;
+        padding: 10px 30px;
+        font-size: 20px;
+        border: none;
+        outline: none;
+        cursor: pointer;
+    }
+}

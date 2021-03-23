@@ -1,17 +1,22 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import '../../styles/misc/boostrap.scss'
 import css from './Main.module.scss'
 import cx from 'classnames'
-import {addHabit} from '../../store/habits/actions'
+import {addHabit, fetchHabits} from '../../store/habits/actions'
 import {setDayModal} from '../../store/dayModal/actions'
 import {setHabitModal} from '../../store/habitModal/actions'
+import Loader from '../../ui/Loader/Loader'
 export default function Main(){
     const habits = useSelector(state => state.habits.habits);
+    const loading = useSelector(state => state.habits.loading)
     const dispatch = useDispatch();
-
     const [inputName, setName] = useState('') // Contain input change data
+    useEffect(()=>{
+        dispatch(fetchHabits())
+    }, [dispatch])
 
+    
     const createDays = ()=> {
         const date = new Date()
         const daysInTheMonth = new Date(date.getFullYear(), date.getMonth()+1, 0).getDate();
@@ -26,8 +31,9 @@ export default function Main(){
     }
 
     function submitHandler(e, habitName){
-    e.preventDefault()
-    dispatch(addHabit(habitName))
+        e.preventDefault();
+        setName('');
+        dispatch(addHabit(habitName));
     }
     function handleDayClick(habit, key){
         dispatch(setDayModal(habit, key))
@@ -54,6 +60,8 @@ export default function Main(){
     return (
         <main>
             <div className="container">
+                {loading? <Loader/>
+                : 
                 <table className = {css.table}>
                     <thead>
                     <tr>
@@ -71,7 +79,7 @@ export default function Main(){
                             )
                         })}
                     </tbody>
-                </table>
+                </table>}
                 <form action="" 
                 className = {css.addHabit} 
                 onSubmit ={(e)=> submitHandler(e, inputName)}>
@@ -88,7 +96,7 @@ export default function Main(){
                     <button type='submit'>ADD</button>
                 </form>
             </div>
-
+}
         </main>
     )
 }

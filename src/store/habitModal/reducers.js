@@ -11,7 +11,7 @@ const habitModal =(state = initialState, { type, payload }) => {
     case SET_HABIT_MODAL:
         return { ...state, habit: payload ,isOpen: true }
     case CLOSE_HABIT_MODAL:
-        return {...state, isOpen: false}
+        return {habit: {}, isOpen: false}
     default:
         return state
     }
