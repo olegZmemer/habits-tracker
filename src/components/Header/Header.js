@@ -3,8 +3,11 @@ import cx from 'classnames'
 import css from './Header.module.scss'
 import '../../styles/misc/boostrap.scss'
 import {Link} from 'react-router-dom'
+import { logout } from '../../store/auth/actions'
+import { useDispatch } from 'react-redux'
 
 export default function Header() {
+    const dispatch = useDispatch()
     return (
     <div className = {css.header}>
         <div className = 'container'>
@@ -27,7 +30,7 @@ export default function Header() {
                         </ul>
                     </div>
                     <div className = {cx('col-md-3', css.header__user)}>
-                        <button className = {css.logout}>Logout</button>
+                        <button onClick= {()=> dispatch(logout())} className = {css.logout}>Logout</button>
                         <img className = {css.avatar} src='https://picsum.photos/50' alt="avatar"/>
                     </div>
             </div>

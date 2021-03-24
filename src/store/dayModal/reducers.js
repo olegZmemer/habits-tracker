@@ -1,12 +1,11 @@
 import {
-    CHECK_DAY,
     CLOSE_DAY_MODAL,
     SET_DAY_MODAL
 } from "../actionTypes"
 
 const initialState = {
     habit: {},
-    day: 10,
+    day: null,
     isOpen: false
 }
 
@@ -23,13 +22,10 @@ export default function dayModal(state = initialState, {
             case CLOSE_DAY_MODAL:
                 return {
                     habit: {},
-                        day: 10,
-                        isOpen: false
+                    day: null,
+                    isOpen: false
                 }
-            case CHECK_DAY:
-                return {
-                    ...state
-                }
+            
             default:
                 return state
     }

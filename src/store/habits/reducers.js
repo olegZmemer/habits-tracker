@@ -18,7 +18,7 @@ const habits = (state = initialState, {
             }
         case FETCH_HABITS_SUCCESS:
             return {
-                habits: payload,
+                habits: Array.from(payload),
                 loading: false
             }
         case FETCH_HABITS_ERROR:

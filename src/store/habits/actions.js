@@ -39,7 +39,7 @@ export function fetchHabits() {
     return dispatch => {
         dispatch(fetchHabitsStart());
         getHabits().then(habits => {
-            
+            console.log(habits);
             dispatch(fetchHabitsSuccess(habits))
         }).catch(err => {
             dispatch(fetchHabitsError(err))
@@ -64,6 +64,7 @@ export function fetchHabitsError(err) {
     }
 }
 export const updateHabits = (newHabits) => {
+    console.log(newHabits);
     updateDbHabits(newHabits)
     return {
         type: UPDATE_HABITS,

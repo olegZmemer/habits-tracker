@@ -1,4 +1,4 @@
-import { CHECK_DAY, CLOSE_DAY_MODAL, SET_DAY_MODAL} from "../actionTypes"
+import { CLOSE_DAY_MODAL, SET_DAY_MODAL} from "../actionTypes"
 import {updateHabits} from '../habits/actions'
 export const setDayModal = (habit, day)=>{
     return {
@@ -11,7 +11,7 @@ export const setDayModal = (habit, day)=>{
 
 export const checkDay = (checked, day)=>{
     return (dispatch, getState) =>{
-        dispatch(closeModal());
+        parseInt(day)
         const updatedHabits = [...getState().habits.habits];
         updatedHabits.map(habit=>{
             if(habit.id === getState().dayModal.habit.id){
@@ -20,9 +20,7 @@ export const checkDay = (checked, day)=>{
             return habit
         })
         dispatch(updateHabits(updatedHabits));
-        return {
-            type: CHECK_DAY
-        }
+        dispatch(closeModal());
     }
 }
 

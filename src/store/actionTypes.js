@@ -7,7 +7,6 @@ export const FETCH_HABITS_SUCCESS = 'FETCH_HABITS_SUCCESS';
 export const FETCH_HABITS_ERROR = 'FETCH_HABITS_ERROR';
 
 export const SET_DAY_MODAL = 'SET_DAY_MODAL';
-export const CHECK_DAY = 'CHECK_DAY'
 export const CLOSE_DAY_MODAL = 'CLOSE_DAY_MODAL';
 
 export const SET_HABIT_MODAL = 'SET_HABIT_MODAL';
@@ -18,3 +17,5 @@ export const SIGNIN_ERROR = 'SIGNIN_ERROR';
 
 export const SIGNUPSUCCESS = 'SIGNUP_SUCCESS';
 export const SIGNUPERROR = 'SIGNUP_ERROR';
+
+export const LOGOUT = 'LOGOUT'
