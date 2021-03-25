@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import '../../styles/misc/boostrap.scss'
 import css from './Main.module.scss'
@@ -6,12 +6,17 @@ import cx from 'classnames'
 import {addHabit, fetchHabits} from '../../store/habits/actions'
 import {setDayModal} from '../../store/dayModal/actions'
 import {setHabitModal} from '../../store/habitModal/actions'
+import {useReactToPrint} from 'react-to-print'
 import Loader from '../../ui/Loader/Loader'
 export default function Main(){
     const habits = useSelector(state => state.habits.habits);
     const loading = useSelector(state => state.habits.loading)
     const dispatch = useDispatch();
     const [inputName, setName] = useState('') // Contain input change data
+    const componentRef = useRef();
+    const handlePrint = useReactToPrint({
+        content: ()=> componentRef.current
+    })
     useEffect(()=>{
         dispatch(fetchHabits())
     }, [dispatch])
@@ -59,10 +64,10 @@ export default function Main(){
 
     return (
         <main>
-            <div className="container">
+            <div className="container-xl">
                 {loading? <Loader/>
                 : 
-                <table className = {css.table}>
+                <table className = {css.table} ref = {componentRef}>
                     <thead>
                     <tr>
                         <th className = {css.habitsTitle}>Habits</th>
@@ -80,23 +85,27 @@ export default function Main(){
                         })}
                     </tbody>
                 </table>}
-                <form action="" 
-                className = {css.addHabit} 
-                onSubmit ={(e)=> submitHandler(e, inputName)}>
-                    <label htmlFor="habit-name">Add your new habit!</label>
-                    
-                    <input 
-                    type="text" 
-                    minLength={3} 
-                    id="habit-name" 
-                    onChange ={(e)=> setName(e.target.value)} 
-                    value = {inputName} 
-                    placeholder='ex. Drink 2l. of water'/>
-                    
-                    <button type='submit'>ADD</button>
-                </form>
+                <div className="row justify-content-between">
+                    <form action="" 
+                    className = {cx(css.addHabit, 'col-4')} 
+                    onSubmit ={(e)=> submitHandler(e, inputName)}>
+                        <label htmlFor="habit-name">Add your new habit!</label>
+                        
+                        <input 
+                        type="text" 
+                        minLength={3} 
+                        id="habit-name" 
+                        onChange ={(e)=> setName(e.target.value)} 
+                        value = {inputName} 
+                        placeholder='ex. Drink 2l. of water'/>
+
+                        <button type='submit'>ADD</button>
+                    </form>
+                    <div className="col-3">
+                        <button className = {css.print} onClick = {handlePrint}>Print you habit tracker</button>
+                    </div>
+                </div>
             </div>
-}
         </main>
     )
 }

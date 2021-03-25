@@ -4,13 +4,15 @@ import css from './Header.module.scss'
 import '../../styles/misc/boostrap.scss'
 import {Link} from 'react-router-dom'
 import { logout } from '../../store/auth/actions'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 export default function Header() {
     const dispatch = useDispatch()
+    const authed = useSelector(state => state.auth.isAuth)
     return (
+
     <div className = {css.header}>
-        <div className = 'container'>
+        <div className = 'container-xl'>
             <nav>
                 <div className="row">
                     <div className = {cx('col-md-3', css.header__logo)}>
@@ -21,13 +23,16 @@ export default function Header() {
                             <li>
                                 <Link to='/'>Home</Link>
                             </li>
-                            <li>
+                            {
+                                authed ? <li>
                                 <Link to='/habits'>My habits</Link>
-                            </li>
+                            </li> : null
+                            }
                             <li>
                                 <Link to='/about'>About</Link>
                             </li>
                         </ul>
+                        
                     </div>
                     <div className = {cx('col-md-3', css.header__user)}>
                         <button onClick= {()=> dispatch(logout())} className = {css.logout}>Logout</button>

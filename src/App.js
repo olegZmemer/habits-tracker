@@ -1,15 +1,20 @@
 import './styles/App.scss'
 import Home from './pages/Home/Home'
 import {BrowserRouter, Route, Switch} from 'react-router-dom'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {auth} from './firebase'
 import { useEffect } from 'react';
 import {signInSuccess} from './store/auth/actions'
+import PrivateRoute from './auth/PrivateRoute'
+import Habits from './pages/Habits/Habits'
 function App() {
+  const authed = useSelector(state => state.auth.isAuth)
   const dispatch = useDispatch();
   useEffect(()=>{
     auth.onAuthStateChanged(user=>{
-      dispatch(signInSuccess(user.uid))
+      if(user){
+        dispatch(signInSuccess(user.uid))
+      }
     })
   })
   return (
@@ -17,6 +22,7 @@ function App() {
       <div className="App">
         <Switch>
           <Route path = '/' exact component = {Home}/>
+          <PrivateRoute path ='/habits' authed = {authed} component={Habits}/>
         </Switch>
       </div>
     </BrowserRouter>
