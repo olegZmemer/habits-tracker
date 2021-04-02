@@ -17,6 +17,8 @@ export default function Main(){
     const handlePrint = useReactToPrint({
         content: ()=> componentRef.current
     })
+    const months= ["January","February","March","April","May","June","July",
+    "August","September","October","November","December"];
     useEffect(()=>{
         dispatch(fetchHabits())
     }, [dispatch])
@@ -29,7 +31,7 @@ export default function Main(){
         
         let days = [];
         for(let i = 1; i < daysInTheMonth+1; i++){
-            days.push(<th className = {css.headerDay} key={`day-${i}`}>{i}</th>);
+            days.push(<div className = {css.headerDay} key={`day-${i}`}>{i}</div>);
         }
         
         return days;
@@ -50,14 +52,15 @@ export default function Main(){
         const days = []
         const progress = habitObj.habitProgress
         for (const key in progress) {
+            
             days.push((
-            <td 
+            <div 
             key={key} 
             className = {css.habitDay}>
                 <div onClick={()=>handleDayClick(habitObj, key)} className={cx(css.habitCyrcle, css[`habitCyrcle-${progress[key]}`])}>
                     
                 </div>
-            </td>))
+            </div>))
         }
         return days
     }
@@ -65,26 +68,28 @@ export default function Main(){
     return (
         <main>
             <div className="container-xl">
-                {loading? <Loader/>
+              {loading? <Loader/>
                 : 
-                <table className = {css.table} ref = {componentRef}>
-                    <thead>
-                    <tr>
-                        <th className = {css.habitsTitle}>Habits</th>
+                <div className = {css.table} ref = {componentRef}>
+                    <div className = {css.date}>
+                        <div className={css.month}>{months[new Date().getMonth()]}</div>
+                        <div className={css.year}>{new Date().getFullYear()}</div>
+                    </div>
+                    <div className = {css.header}>
+                        <div className={css.habitsTitle}>Habits</div>
                         {createDays()}
-                    </tr>
-                    </thead>
-                    <tbody>
+                    </div>
+                    <div className={css.main}>
                         {habits.map((habit)=>{
                             return (
-                                <tr key = {habit.id}>
-                                    <td onClick = {()=>handleHabitClick(habit)} className = {css.habitName}>{habit.name}</td>
+                                <div className={css.row} key = {habit.id}>
+                                    <div onClick = {()=>handleHabitClick(habit)} className = {css.habitName}>{habit.name}</div>
                                     {readHabitProgress(habit)}
-                                </tr>
+                                </div>
                             )
                         })}
-                    </tbody>
-                </table>}
+                    </div>
+                </div>}
                 <div className="row justify-content-between">
                     <form action="" 
                     className = {cx(css.addHabit, 'col-4')} 
@@ -97,8 +102,9 @@ export default function Main(){
                         id="habit-name" 
                         onChange ={(e)=> setName(e.target.value)} 
                         value = {inputName} 
-                        placeholder='ex. Drink 2l. of water'/>
-
+                        placeholder='ex. Drink 2l. of water'
+                        maxLength = {11}
+                        />
                         <button type='submit'>ADD</button>
                     </form>
                     <div className="col-3">

@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 import {signInSuccess} from './store/auth/actions'
 import PrivateRoute from './auth/PrivateRoute'
 import Habits from './pages/Habits/Habits'
+import About from './pages/About/About';
 function App() {
   const authed = useSelector(state => state.auth.isAuth)
   const dispatch = useDispatch();
@@ -23,6 +24,7 @@ function App() {
         <Switch>
           <Route path = '/' exact component = {Home}/>
           <PrivateRoute path ='/habits' authed = {authed} component={Habits}/>
+          <Route path='/about' component={About}/>
         </Switch>
       </div>
     </BrowserRouter>
